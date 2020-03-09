@@ -7,17 +7,14 @@ branches:
   only:
     - hexo # build master branch only
 script:
+  - hexo clean
   - hexo generate # generate static files
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GH_TOKEN
-  keep-history: false
+  keep-history: true
   on:
     all_branches: true
   target_branch: master
   local-dir: public
-addons:
-  ssh_known_hosts: 
-    - github.com
-    - 140.82.114.4
