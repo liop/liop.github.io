@@ -17,3 +17,7 @@ deploy:
     all_branches: true
   target_branch: master
   local-dir: public
+addons:
+  ssh_known_hosts: 
+    - github.com
+    - 140.82.114.4
