@@ -12,7 +12,7 @@ categories:
 ## 1. 解析 info.plist
 
 这一步没什么好说的
-- 加载相关信息，如果启动页
+- 加载启动页
 - 建立沙箱，检查权限
 
 ## 2. Mach-O 加载 或者说是 dyld加载流程
@@ -27,16 +27,15 @@ categories:
   - map_image -> map_images_nolock 计算 class selector 的数目
   - 关键函数 _read_images
     - fix selector
+    - map class protocal @protocal cattegry
 - 关键函数调用 initializeMainExecutable()
   - dependentImage->recursiveInitialization
   - notify(dyld_image_state_dependents_initialized) => 触发sNotifyObjCInit绑定的 objc中的load_images（）
-    - 执行所以的 +load 函数
+    - 执行所有的 +load 函数
   - 当前image -> doInitialization => 会执行 __attribute__((constructor)) c函数
-  - 加载分类（Category）中的方法  
-  - C++ 静态对象加载
 - _main() return main() 地址
 
 
 ## 程序执行
   
-  todo:
+  - main => UIApplicationMain => Appdelegate
