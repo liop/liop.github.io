@@ -30,6 +30,8 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - README.md
+  - '_post/**/embed_page.md'
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -67,8 +69,53 @@ category_map:
     - 'iOS'
     - '前端'
     - '后端'
-tag_map:
+tag_map: sitemap.xml
 
+jsonContent:
+  meta: false
+  pages:
+    title: true
+    date: true
+    path: true
+    text: true
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    tags: true
+    categories: true
+  ignore:
+    - 404.html
+
+nofollow:
+  enable: true
+  exclude:
+    - blog.liop.xyz # eg: zthxxx.me
+
+# Customize
+customize: # 首先修改这项里面的信息为你自己的各项信息
+    sidebar: left # 侧边栏的所在位置，默认左边
+    category_perExpand: false # 侧边栏里的各个分类是否默认全部展开
+    default_index_file: index.md # 是否指定一篇文章作为首页来代替默认的多篇文章的首页，没有此项的话就会显示默认的按时间顺序排列的文章
+    
+# Widgets
+widgets: # 挂件，默认指开启了分类这一栏
+    - category
+    # - recent_posts
+    # - archive
+    # - tag
+    # - tagcloud
+    # - links
+    
+# History version 
+history_control: # 启用这一项使得 wiki 能有历史版本的功能（查看源码、在线编辑、对比历史变动）
+    enable: true
+    server_link: https://github.com # 版本控制服务器，推荐使用 GitHub https://github.com
+    user: liop
+    repertory: https://github.com/liop/liop.github.xyz
+    branch: master
+    
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true
@@ -96,7 +143,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: wikitten
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

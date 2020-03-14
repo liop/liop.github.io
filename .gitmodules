@@ -1,3 +1,6 @@
 [submodule "themes/next"]
 	path = themes/next
 	url = https://github.com/liop/hexo-theme-next.git
+[submodule "themes/wikitten"]
+	path = themes/wikitten
+	url = https://github.com/liop/hexo-theme-Wikitten.git
