@@ -4,7 +4,7 @@ layout: "page"
 date: 2020-03-09 12:48:15
 ---
 
-## 联系我
+## 联系我 (正在寻求iOS/JS全栈的开发工作，有岗位请联系我)
 
 邮箱:    just.liop#qq.com
 github: [liop](https://github.com/liop)
@@ -12,7 +12,7 @@ github: [liop](https://github.com/liop)
 ## 我的技术栈
 
 * 精通 Object-C，熟悉 iOS 平台
-* 熟练 Javascript，熟悉浏览器，移动端H5
+* 熟练 Javascript，熟悉 vue + vuex + webpack + element-ui
 * 有 node.js 接口开发经验，有 python 脚本开发经验
 * 熟悉 linux 平台，熟悉 docker 部署
 
