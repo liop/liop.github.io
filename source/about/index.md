@@ -16,6 +16,15 @@ github: [liop](https://github.com/liop)
 * 有 node.js 接口开发经验，有 python 脚本开发经验
 * 熟悉 linux 平台，熟悉 docker 部署
 
+
+## 我的个人项目
+
+### [BTSyncKeys][BTSyncKeys]
+
+为Resilio Sync 提供 key 的搜索，最新最热key排行
+
+
+
 ## 我的工作项目
 
 ### iOS
@@ -43,6 +52,9 @@ github: [liop](https://github.com/liop)
 * [电信大数据风控]
 * [联调大数据营销]
 * [钉铛AI]
+
+
+[BTSyncKeys]:"https://btsynckeys.herokuapp.com/"
 
 [瑞钱宝]:"https://apps.apple.com/cn/app/%E7%91%9E%E9%92%B1%E5%AE%9D-3%E5%B9%B4%E9%93%B6%E8%A1%8C%E5%AD%98%E7%AE%A1%E6%8A%95%E8%B5%84%E7%90%86%E8%B4%A2%E5%A5%BD%E4%BA%A7%E5%93%81/id914860608" "去appstore"
 [瑞钱宝-官网]:http://www.rqbao.com/
