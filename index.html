@@ -182,7 +182,7 @@
                             &nbsp;
                             iOS
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-performance/">iOS 性能优化</a></li>  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -356,6 +356,110 @@
             </p></div>   
             <div class="article-more-link">
                 <a href="/2020/03/10/iOS-APP-launch-process/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-iOS-performance" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/iOS/">iOS</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/iOS/" rel="tag">iOS</a>, <a class="tag-link" href="/tags/%E6%80%A7%E8%83%BD/" rel="tag">性能</a>, <a class="tag-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/03/10/iOS-performance/">
+            <time datetime="2020-03-10T06:12:19.000Z" itemprop="datePublished">2020-03-10</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/iOS-performance.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/iOS-performance.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/iOS-performance.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/03/10/iOS-performance/">iOS 性能优化</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p></p><p>iOS 面试中经常出现的问题 <code>你做过哪些性能优化啊？</code> ，在这里总结一下。性能优化是一个很大的词，在做性能优化前需要先确定性能指标，完成性能监控，然后才好谈优化。</p>
+<h2 id="1-一般的优化方向"><a href="#1-一般的优化方向" class="headerlink" title="1. 一般的优化方向"></a>1. 一般的优化方向</h2><h3 id="启动优化"><a href="#启动优化" class="headerlink" title="启动优化"></a>启动优化</h3><p>一般我们选取：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t1 &#x3D; 用户点击APP到执行main()</span><br><span class="line">t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕</span><br><span class="line">t3 &#x3D; appDelegate的didFinishLaunchingWithOptions方法执行完毕到首屏显示</span><br></pre></td></tr></table></figure>
+<p>有些是把t1+t2作为启动时间，考虑到项目组件化，t1+t2+t3 可能更合适</p>
+<h4 id="t1时间的优化"><a href="#t1时间的优化" class="headerlink" title="t1时间的优化"></a>t1时间的优化</h4><p>t1 的时间主要是ldyd加载image:<code>link rebase bind</code>，objc初始化:<code>map_image read_image load_image</code>  以及静态方法 <code>__attribute__((constructor))</code></p>
+<p>
+                
+            
+        
+        
+            </p></div>   
+            <div class="article-more-link">
+                <a href="/2020/03/10/iOS-performance/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
