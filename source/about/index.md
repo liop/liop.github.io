@@ -62,7 +62,7 @@ github: [liop](https://github.com/liop)
 [钉铛AI]:http://jingleapp.uccc.cc/H5/ "打开浏览器"
 [电信大数据风控]:http://jingleapp.uccc.cc/telecom/ "打开浏览器"
 [联调大数据营销]:http://jingleapp.uccc.cc/liantong/ "打开浏览器"
-[米多财富]:"https://apps.apple.com/cn/app/%E7%B1%B3%E5%A4%9A%E8%B4%A2%E5%AF%8C%E7%AE%A1%E7%90%86-%E9%AB%98%E5%87%80%E5%80%BC%E6%8A%95%E8%B5%84%E8%80%85%E8%B4%A2%E5%AF%8C%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/id965152651"
+[米多财富]:https://apps.apple.com/cn/app/%E7%B1%B3%E5%A4%9A%E8%B4%A2%E5%AF%8C%E7%AE%A1%E7%90%86-%E9%AB%98%E5%87%80%E5%80%BC%E6%8A%95%E8%B5%84%E8%80%85%E8%B4%A2%E5%AF%8C%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/id965152651
 
 [保定通在线]: https://apps.apple.com/cn/app/%E4%BF%9D%E5%AE%9A%E9%80%9A%E5%9C%A8%E7%BA%BF/id1295531718?l=id
 [达州通在线]:https://apps.apple.com/cn/app/%E8%BE%BE%E5%B7%9E%E9%80%9A%E5%9C%A8%E7%BA%BF/id1450790276?l=id
