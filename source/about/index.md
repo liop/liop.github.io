@@ -54,9 +54,9 @@ github: [liop](https://github.com/liop)
 * [钉铛AI]
 
 
-[BTSyncKeys]:"https://btsynckeys.herokuapp.com/"
+[BTSyncKeys]: https://btsynckeys.herokuapp.com/
 
-[瑞钱宝]:"https://apps.apple.com/cn/app/%E7%91%9E%E9%92%B1%E5%AE%9D-3%E5%B9%B4%E9%93%B6%E8%A1%8C%E5%AD%98%E7%AE%A1%E6%8A%95%E8%B5%84%E7%90%86%E8%B4%A2%E5%A5%BD%E4%BA%A7%E5%93%81/id914860608" "去appstore"
+[瑞钱宝]:https://apps.apple.com/cn/app/%E7%91%9E%E9%92%B1%E5%AE%9D-3%E5%B9%B4%E9%93%B6%E8%A1%8C%E5%AD%98%E7%AE%A1%E6%8A%95%E8%B5%84%E7%90%86%E8%B4%A2%E5%A5%BD%E4%BA%A7%E5%93%81/id914860608 "去appstore"
 [瑞钱宝-官网]:http://www.rqbao.com/
 [钉铛]:https://apps.apple.com/cn/app/%E9%92%89%E9%93%9B-%E4%B8%93%E4%B8%9A%E9%94%80%E5%94%AE%E7%AD%BE%E5%8D%95%E7%A5%9E%E5%99%A8/id1066093207?l=en "去appstore"
 [钉铛AI]:http://jingleapp.uccc.cc/H5/ "打开浏览器"
