@@ -9,15 +9,15 @@
         <meta name="keywords" content="iOS,面试,性能">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="iOS 面试中经常出现的问题 你做过哪些性能优化啊？ ，在这里总结一下。性能优化是一个很大的词，在做性能优化前需要先确定性能指标，完成性能监控，然后才好谈优化。 1. 一般的优化方向启动优化一般我们选取： 123t1 &#x3D; 用户点击APP到执行main()t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕t">
+    <meta name="description" content="iOS 面试中经常出现的问题 你做过哪些性能优化啊？ ，在这里总结一下。性能优化是一个很大的词，在做性能优化前需要先确定性能指标，完成性能监控，然后才好谈优化。 1. 一般的优化方向启动优化一般我们选取： t1 &#x3D; 用户点击APP到执行main()t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕t3 &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 性能优化">
 <meta property="og:url" content="http://liop.github.io/2020/03/10/iOS-performance/index.html">
 <meta property="og:site_name" content="liop">
-<meta property="og:description" content="iOS 面试中经常出现的问题 你做过哪些性能优化啊？ ，在这里总结一下。性能优化是一个很大的词，在做性能优化前需要先确定性能指标，完成性能监控，然后才好谈优化。 1. 一般的优化方向启动优化一般我们选取： 123t1 &#x3D; 用户点击APP到执行main()t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕t">
+<meta property="og:description" content="iOS 面试中经常出现的问题 你做过哪些性能优化啊？ ，在这里总结一下。性能优化是一个很大的词，在做性能优化前需要先确定性能指标，完成性能监控，然后才好谈优化。 1. 一般的优化方向启动优化一般我们选取： t1 &#x3D; 用户点击APP到执行main()t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕t3 &amp;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-10T06:12:19.000Z">
-<meta property="article:modified_time" content="2020-03-23T12:24:52.711Z">
+<meta property="article:modified_time" content="2020-04-05T04:37:15.273Z">
 <meta property="article:author" content="liop">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="面试">
@@ -340,7 +340,7 @@
         
             <p>iOS 面试中经常出现的问题 <code>你做过哪些性能优化啊？</code> ，在这里总结一下。性能优化是一个很大的词，在做性能优化前需要先确定性能指标，完成性能监控，然后才好谈优化。</p>
 <h2 id="1-一般的优化方向"><a href="#1-一般的优化方向" class="headerlink" title="1. 一般的优化方向"></a>1. 一般的优化方向</h2><h3 id="启动优化"><a href="#启动优化" class="headerlink" title="启动优化"></a>启动优化</h3><p>一般我们选取：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t1 &#x3D; 用户点击APP到执行main()</span><br><span class="line">t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕</span><br><span class="line">t3 &#x3D; appDelegate的didFinishLaunchingWithOptions方法执行完毕到首屏显示</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">t1 &#x3D; 用户点击APP到执行main()</span><br><span class="line">t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕</span><br><span class="line">t3 &#x3D; appDelegate的didFinishLaunchingWithOptions方法执行完毕到首屏显示</span><br></pre></td></tr></table></figure>
 <p>有些是把t1+t2作为启动时间，考虑到项目组件化，t1+t2+t3 可能更合适</p>
 <h4 id="t1时间的优化"><a href="#t1时间的优化" class="headerlink" title="t1时间的优化"></a>t1时间的优化</h4><p>t1 的时间主要是ldyd加载image:<code>link rebase bind</code>，objc初始化:<code>map_image read_image load_image</code>  以及静态方法 <code>__attribute__((constructor))</code></p>
 <h4 id="t2时间的优化"><a href="#t2时间的优化" class="headerlink" title="t2时间的优化"></a>t2时间的优化</h4><h4 id="t3时间的优化"><a href="#t3时间的优化" class="headerlink" title="t3时间的优化"></a>t3时间的优化</h4><h4 id="卡顿优化"><a href="#卡顿优化" class="headerlink" title="卡顿优化"></a>卡顿优化</h4><h4 id="耗电优化"><a href="#耗电优化" class="headerlink" title="耗电优化"></a>耗电优化</h4><h4 id="网络优化"><a href="#网络优化" class="headerlink" title="网络优化"></a>网络优化</h4><h2 id="2-指标监控"><a href="#2-指标监控" class="headerlink" title="2. 指标监控"></a>2. 指标监控</h2>
