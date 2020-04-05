@@ -3,25 +3,25 @@
 <head>
     <meta charset="utf-8">
     
-    <title>iOS APP 启动完成过程 | liop</title>
+    <title>iOS 13 版本适配 | liop</title>
     
     
-        <meta name="keywords" content="iOS,面试,启动">
+        <meta name="keywords" content="iOS,13,适配">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="1. 解析 info.plist这一步没什么好说的  加载启动页 建立沙箱，检查权限  2. Mach-O 加载 或者说是 dyld加载流程 设置运行环境，环境变量，获取当前运行架构  加载共享缓存  加载主执行文件，生成一个imageLoader实例  加载所有插入的库  link 主执行文件 (link过程会先loadLibraries ，定位内部（rebase）、外部（bind）制作引用，比">
+    <meta name="description" content="1、新建的项目启动黑屏或者window不存在因为 iOS 13 下默认通过UISceneDelegate来管理窗口生命周期需要在AppleDelegate.h中添加window: @perperty (strong,nonatomic) UIWindow *window;    在AppleDelegate.m 中添加 - (BOOL)application:(UIApplication *)ap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS APP 启动完成过程">
-<meta property="og:url" content="http://liop.github.io/2020/03/10/iOS-APP-launch-process/index.html">
+<meta property="og:title" content="iOS 13 版本适配">
+<meta property="og:url" content="http://liop.github.io/2020/04/03/iOS13-adaptive/index.html">
 <meta property="og:site_name" content="liop">
-<meta property="og:description" content="1. 解析 info.plist这一步没什么好说的  加载启动页 建立沙箱，检查权限  2. Mach-O 加载 或者说是 dyld加载流程 设置运行环境，环境变量，获取当前运行架构  加载共享缓存  加载主执行文件，生成一个imageLoader实例  加载所有插入的库  link 主执行文件 (link过程会先loadLibraries ，定位内部（rebase）、外部（bind）制作引用，比">
+<meta property="og:description" content="1、新建的项目启动黑屏或者window不存在因为 iOS 13 下默认通过UISceneDelegate来管理窗口生命周期需要在AppleDelegate.h中添加window: @perperty (strong,nonatomic) UIWindow *window;    在AppleDelegate.m 中添加 - (BOOL)application:(UIApplication *)ap">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-10T07:09:41.000Z">
+<meta property="article:published_time" content="2020-04-03T08:23:48.000Z">
 <meta property="article:modified_time" content="2020-04-05T04:39:37.683Z">
 <meta property="article:author" content="liop">
 <meta property="article:tag" content="iOS">
-<meta property="article:tag" content="面试">
-<meta property="article:tag" content="启动">
+<meta property="article:tag" content="13">
+<meta property="article:tag" content="适配">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@just4liop">
     
@@ -186,7 +186,7 @@
                             &nbsp;
                             iOS
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-performance/">iOS 性能优化</a></li>  <li class="file active"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  <li class="file"><a href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-performance/">iOS 性能优化</a></li>  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  <li class="file active"><a href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -277,7 +277,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-iOS-APP-launch-process" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-iOS13-adaptive" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -293,14 +293,14 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/iOS/" rel="tag">iOS</a>, <a class="tag-link" href="/tags/%E5%90%AF%E5%8A%A8/" rel="tag">启动</a>, <a class="tag-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+        <a class="tag-link" href="/tags/13/" rel="tag">13</a>, <a class="tag-link" href="/tags/iOS/" rel="tag">iOS</a>, <a class="tag-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2020/03/10/iOS-APP-launch-process/">
-            <time datetime="2020-03-10T07:09:41.000Z" itemprop="datePublished">2020-03-10</time>
+        <a href="/2020/04/03/iOS13-adaptive/">
+            <time datetime="2020-04-03T08:23:48.000Z" itemprop="datePublished">2020-04-03</time>
         </a>
     </div>
 
@@ -311,13 +311,13 @@
                         
                         
                             <div class="article-meta-button">
-                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/iOS-APP-launch-process.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
+                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/iOS13-adaptive.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
                             </div>
                             <div class="article-meta-button">
-                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/iOS-APP-launch-process.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
+                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/iOS13-adaptive.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
                             </div>
                             <div class="article-meta-button">
-                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/iOS-APP-launch-process.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
+                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/iOS13-adaptive.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
                             </div>
                         
                     </div>
@@ -325,7 +325,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            iOS APP 启动完成过程
+            iOS 13 版本适配
         </h1>
     
 
@@ -338,55 +338,49 @@
             
         
         
-            <h2 id="1-解析-info-plist"><a href="#1-解析-info-plist" class="headerlink" title="1. 解析 info.plist"></a>1. 解析 info.plist</h2><p>这一步没什么好说的</p>
+            <h4 id="1、新建的项目启动黑屏或者window不存在"><a href="#1、新建的项目启动黑屏或者window不存在" class="headerlink" title="1、新建的项目启动黑屏或者window不存在"></a>1、新建的项目启动黑屏或者window不存在</h4><p>因为 iOS 13 下默认通过UISceneDelegate来管理窗口生命周期<br>需要在AppleDelegate.h中添加window:</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">@perperty (<span class="keyword">strong</span>,<span class="keyword">nonatomic</span>) <span class="built_in">UIWindow</span> *window;</span><br></pre></td></tr></table></figure>
+
+<p>  在AppleDelegate.m 中添加</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (@available(iOS <span class="number">13.0</span>, *)) &#123;</span><br><span class="line">        <span class="comment">// iOS 13 去 SceneDelegate 处理中了</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc]initWithFrame:[<span class="built_in">UIScreen</span> mainScreen].bounds];</span><br><span class="line">        <span class="keyword">self</span>.window.rootViewController = [ContainerViewController shareInstance];</span><br><span class="line">        [<span class="keyword">self</span>.window makeKeyAndVisible];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、一些私有属性已经不存在了，访问会crash"><a href="#2、一些私有属性已经不存在了，访问会crash" class="headerlink" title="2、一些私有属性已经不存在了，访问会crash"></a>2、一些私有属性已经不存在了，访问会crash</h4><ul>
+<li><code>UITextField</code> 的 <code> _placeholderLabel.textColor</code></li>
+<li><code>UITextField</code> 的 <code> _placeholderLabel.font</code></li>
+<li><code>UISearchBar</code> 的 <code>_cancelButton</code></li>
+<li><code>[UIApplication sharedApplication]</code> 的 <code>statusBarWindow</code></li>
+</ul>
+<p>需要去掉或者重新实现，比如</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">// iOS 13下会crash</span></span><br><span class="line">[textfiled setValue:color forKeyPath:<span class="string">@"_placeholderLabel.textColor"</span>];</span><br><span class="line">[textfiled setValue:font forKeyPath:<span class="string">@"_placeholderLabel.font"</span>];</span><br><span class="line"><span class="comment">// 替换为</span></span><br><span class="line">textfiled.attributedPlaceholder = xxx;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、模态视图控制器切换不完全"><a href="#3、模态视图控制器切换不完全" class="headerlink" title="3、模态视图控制器切换不完全"></a>3、模态视图控制器切换不完全</h4><p>iOS 13 控制器的<code>modalPresentationStyle</code>被默认设置为 <code>UIModalPresentationAutomatic</code><br>解决方案：</p>
+<ol>
+<li>如果像使用这个默认系统模式的话，可能需要适配页面。</li>
+<li>修改视图控制器的 <code>modalPresentationStyle</code></li>
+</ol>
+<h4 id="4、NSObjectNotAvailableException"><a href="#4、NSObjectNotAvailableException" class="headerlink" title="4、NSObjectNotAvailableException"></a>4、NSObjectNotAvailableException</h4><p>一些类以前被标记为 API_DEPRECATED 被移除了，需要使用新类</p>
 <ul>
-<li>加载启动页</li>
-<li>建立沙箱，检查权限</li>
+<li>MPMoviePlayerController =&gt; AVPlayerViewController</li>
+<li>UISearchDisplayController =&gt; UISearchController</li>
+<li>UIAlertView =&gt; UIAlertController</li>
 </ul>
-<h2 id="2-Mach-O-加载-或者说是-dyld加载流程"><a href="#2-Mach-O-加载-或者说是-dyld加载流程" class="headerlink" title="2. Mach-O 加载 或者说是 dyld加载流程"></a>2. Mach-O 加载 或者说是 dyld加载流程</h2><ul>
-<li><p>设置运行环境，环境变量，获取当前运行架构</p>
-</li>
-<li><p>加载共享缓存</p>
-</li>
-<li><p>加载主执行文件，生成一个imageLoader实例</p>
-</li>
-<li><p>加载所有插入的库</p>
-</li>
-<li><p>link 主执行文件 (link过程会先loadLibraries ，定位内部（rebase）、外部（bind）制作引用，比如 字符串、函数)</p>
-</li>
-<li><p>link动态库</p>
+<h4 id="5、一些API-被弃用"><a href="#5、一些API-被弃用" class="headerlink" title="5、一些API 被弃用"></a>5、一些API 被弃用</h4><p>弃用 LaunchImage，使用 LaunchScreen.storyboard，不然没法提交审核<br>弃用 UIWebView，使用WKWebView</p>
+<h3 id="6、一些权限变化"><a href="#6、一些权限变化" class="headerlink" title="6、一些权限变化"></a>6、一些权限变化</h3><ul>
+<li>蓝牙权限描述：<br>弃用 NSBluetoothPeripheralUsageDescription<br>新增 NSBuletoothAlwaysUsageDescription<br>如果支持iOS 13以前版本的话，两个都要</li>
+<li>获取WIFI的SSID和BSSID：<br>iOS 13 需要先开启 Access WiFi Information capability</li>
+</ul>
+<h4 id="7、使用第三方登录的问题"><a href="#7、使用第三方登录的问题" class="headerlink" title="7、使用第三方登录的问题"></a>7、使用第三方登录的问题</h4><p>如果集成了第三方登录，就需要提供 Sign in with Apple<br>如果没集成第三方登录，就不用提供</p>
+<h4 id="8、NSData-description"><a href="#8、NSData-description" class="headerlink" title="8、NSData description"></a>8、NSData description</h4><p>iOS 13 之前可以通过description 方法将data 转化为string<br>iOS 13 以后需要通过</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)hexadecimalString: (<span class="built_in">NSData</span> *)data &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *dataBuffer = (<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *)[data bytes];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!dataBuffer) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">NSString</span> string];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSUInteger</span> dataLength  = [data length];</span><br><span class="line">    <span class="built_in">NSMutableString</span> *hexString  = [<span class="built_in">NSMutableString</span> stringWithCapacity:(dataLength * <span class="number">2</span>)];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dataLength; ++i) &#123;</span><br><span class="line">        [hexString appendFormat:<span class="string">@"%02x"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)dataBuffer[i]];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithString:hexString];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个可能影响加解密和远程通知的TOKEN 获取</p>
+<h4 id="9、暗黑模式"><a href="#9、暗黑模式" class="headerlink" title="9、暗黑模式"></a>9、暗黑模式</h4><p>暂时不适配的处理：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 修改代码</span></span><br><span class="line"><span class="keyword">if</span> (@available(iOS <span class="number">13.0</span>, *)) &#123;</span><br><span class="line">    [<span class="built_in">UIApplication</span> sharedApplication].keyWindow.overrideUserInterfaceStyle = <span class="built_in">UIUserInterfaceStyleLight</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或者 修改info.plist</span></span><br><span class="line">&lt;key&gt;UIUserInterfaceStyle&lt;/key&gt;</span><br><span class="line">&lt;string&gt;Light&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+<p>适配的处理：<br>系统方案查看 UIColor+UIColorNameColors 和 UIColor+DynamicColors<br>参考：<br>腾讯的：<a href="https://github.com/Tencent/QMUI_iOS/wiki/%E4%BD%BF%E7%94%A8-QMUITheme-%E5%AE%9E%E7%8E%B0%E6%8D%A2%E8%82%A4%E5%B9%B6%E9%80%82%E9%85%8D-iOS-13-Dark-Mode" target="_blank" rel="external nofollow noopener noreferrer">使用 QMUITheme 实现换肤并适配 iOS 13 Dark Mode</a><br>百度的：<a href="https://developer.baidu.com/topic/show/290490" target="_blank" rel="external nofollow noopener noreferrer">百度APP iOS暗黑模式适配的完美解决方案</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
 <ul>
-<li>notify（dyld_image_state_bound） =&gt; 触发 sNotifyObjCMapped绑定 objc库中map_images()<ul>
-<li>map_image -&gt; map_images_nolock 计算 class selector 的数目</li>
-<li>关键函数 _read_images<ul>
-<li>fix selector</li>
-<li>map class protocal @protocal cattegry</li>
+<li><a href="https://www.jianshu.com/p/5bb6bc7ef565" target="_blank" rel="external nofollow noopener noreferrer">《iOS13的特性和适配》</a></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>执行弱符号绑定</p>
-</li>
-<li><p>关键函数调用 initializeMainExecutable()</p>
-<ul>
-<li>dependentImage-&gt;recursiveInitialization<ul>
-<li>notify(dyld_image_state_dependents_initialized) =&gt; 触发sNotifyObjCInit绑定的 objc中的load_images（）<ul>
-<li>执行所有的 +load 函数</li>
-</ul>
-</li>
-<li>当前image -&gt; doInitialization =&gt; 会执行 <strong>attribute</strong>((constructor)) c函数</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>查找入口点并返回 main() 地址</p>
-</li>
-</ul>
-<h2 id="程序执行"><a href="#程序执行" class="headerlink" title="程序执行"></a>程序执行</h2><ul>
-<li>main =&gt; UIApplicationMain =&gt; Appdelegate</li>
-</ul>
+</blockquote>
 
             </div>
         
@@ -399,19 +393,10 @@
     
 <nav id="article-nav">
     
-        <a href="/2020/03/23/%E5%A4%A7%E5%8E%82app/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    大厂app
-                
-            </div>
-        </a>
     
-    
-        <a href="/2020/03/10/iOS-performance/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2020/03/23/%E5%A4%A7%E5%8E%82app/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">iOS 性能优化</div>
+            <div class="article-nav-title">大厂app</div>
         </a>
     
 </nav>
@@ -459,9 +444,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://liop.github.io/2020/03/10/iOS-APP-launch-process/';
+            this.page.url = 'http://liop.github.io/2020/04/03/iOS13-adaptive/';
         
-        this.page.identifier = 'iOS-APP-launch-process';
+        this.page.identifier = 'iOS13-adaptive';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

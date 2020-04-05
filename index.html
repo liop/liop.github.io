@@ -182,7 +182,7 @@
                             &nbsp;
                             iOS
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-performance/">iOS 性能优化</a></li>  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-performance/">iOS 性能优化</a></li>  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  <li class="file"><a href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -274,6 +274,110 @@
 </aside>
             
             <section id="main">
+        <article id="post-iOS13-adaptive" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/iOS/">iOS</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/13/" rel="tag">13</a>, <a class="tag-link" href="/tags/iOS/" rel="tag">iOS</a>, <a class="tag-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/04/03/iOS13-adaptive/">
+            <time datetime="2020-04-03T08:23:48.000Z" itemprop="datePublished">2020-04-03</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/iOS13-adaptive.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/iOS13-adaptive.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/iOS13-adaptive.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p></p><h4 id="1、新建的项目启动黑屏或者window不存在"><a href="#1、新建的项目启动黑屏或者window不存在" class="headerlink" title="1、新建的项目启动黑屏或者window不存在"></a>1、新建的项目启动黑屏或者window不存在</h4><p>因为 iOS 13 下默认通过UISceneDelegate来管理窗口生命周期<br>需要在AppleDelegate.h中添加window:</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">@perperty (<span class="keyword">strong</span>,<span class="keyword">nonatomic</span>) <span class="built_in">UIWindow</span> *window;</span><br></pre></td></tr></table></figure>
+
+<p>  在AppleDelegate.m 中添加</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (@available(iOS <span class="number">13.0</span>, *)) &#123;</span><br><span class="line">        <span class="comment">// iOS 13 去 SceneDelegate 处理中了</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc]initWithFrame:[<span class="built_in">UIScreen</span> mainScreen].bounds];</span><br><span class="line">        <span class="keyword">self</span>.window.rootViewController = [ContainerViewController shareInstance];</span><br><span class="line">        [<span class="keyword">self</span>.window makeKeyAndVisible];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>
+                
+            
+        
+        
+            </p></div>   
+            <div class="article-more-link">
+                <a href="/2020/04/03/iOS13-adaptive/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-大厂app" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
