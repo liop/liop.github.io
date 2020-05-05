@@ -3,7 +3,7 @@ title: 部署hexo+next 到github page 的一些坑
 date: 2020-01-14 16:12:02
 tags: web
 categories: 
-- web前端
+- 前端
 ---
 
 打算把之前写的技术文档整理一下，先花了点时间布了 hexo + next 到github pages 上，同时用 travis 做自动发布，这里记录下遇到的问题。
