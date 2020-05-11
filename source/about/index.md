@@ -4,7 +4,7 @@ layout: "page"
 date: 2020-03-09 12:48:15
 ---
 
-## 联系我 (正在寻求iOS/JS全栈的开发工作，有岗位请联系我)
+## 联系我 (正在寻求iOS/前端的开发工作，有岗位请联系我)
 
 邮箱:    just.liop#qq.com
 github: [liop](https://github.com/liop)
@@ -23,6 +23,9 @@ github: [liop](https://github.com/liop)
 
 为Resilio Sync 提供 key 的搜索，最新最热key排行
 
+### telegram 机器人
+
+- [@image2image_bot](https://t.me/image2image_bot) 以图搜图机器人，调用的google图片搜索
 
 
 ## 我的工作项目
