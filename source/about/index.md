@@ -25,8 +25,8 @@ github: [liop](https://github.com/liop)
 
 ### telegram 机器人
 
-- [@image2image_bot](https://t.me/image2image_bot) 以图搜图机器人，调用的google图片搜索
-
+1. [@image2image_bot](https://t.me/image2image_bot) 以图搜图机器人，调用的google图片搜索
+2. [@tozh_bot](https://t.me/tozh_bot) 翻译机器人，支持粤语
 
 ## 我的工作项目
 
