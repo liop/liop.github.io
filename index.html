@@ -182,7 +182,7 @@
                             &nbsp;
                             iOS
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-performance/">iOS 性能优化</a></li>  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  <li class="file"><a href="/2020/03/25/iOS-diff/">iOS SDK 版本新特性</a></li>  <li class="file"><a href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  <li class="file"><a href="/2020/03/25/iOS-diff/">iOS SDK 版本新特性</a></li>  <li class="file"><a href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a></li>  <li class="file"><a href="/2020/05/10/dispath_once%E5%86%85%E9%83%A8/">dispath_once内部实现</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -191,7 +191,7 @@
                             &nbsp;
                             前端
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/01/14/hexo-next-githubpage/">部署hexo+next 到github page 的一些坑</a></li>  <li class="file"><a href="/2020/05/04/%E5%90%84%E8%AF%AD%E8%A8%80eventloop%E5%AE%9E%E7%8E%B0/">JS的EventLoop和OC的RunLoop比较</a></li>  <li class="file"><a href="/2020/05/06/%E5%89%8D%E7%AB%AF%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/">前端错误监控</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2017/02/11/2017-02-07-Shadow-DOM/">Shadow DOM!</a></li>  <li class="file"><a href="/2020/01/14/hexo-next-githubpage/">部署hexo+next 到github page 的一些坑</a></li>  <li class="file"><a href="/2020/05/04/%E5%90%84%E8%AF%AD%E8%A8%80eventloop%E5%AE%9E%E7%8E%B0/">JS的EventLoop和OC的RunLoop比较</a></li>  <li class="file"><a href="/2020/05/06/%E5%89%8D%E7%AB%AF%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/">前端错误监控</a></li>  <li class="file"><a href="/2020/05/07/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/">前端缓存</a></li>  <li class="file"><a href="/2020/05/08/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">各种生命周期</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -274,6 +274,318 @@
 </aside>
             
             <section id="main">
+        <article id="post-dispath_once内部" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/iOS/">iOS</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/05/10/dispath_once%E5%86%85%E9%83%A8/">
+            <time datetime="2020-05-10T06:39:42.000Z" itemprop="datePublished">2020-05-10</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/dispath_once内部.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/dispath_once内部.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/dispath_once内部.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/05/10/dispath_once%E5%86%85%E9%83%A8/">dispath_once内部实现</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p></p><h4 id="dispath-once"><a href="#dispath-once" class="headerlink" title="dispath_once"></a>dispath_once</h4><p>dispatch_once 实际调用 <code>dispatch_once_f</code> </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dispatch_once_f</span><span class="params">(<span class="keyword">dispatch_once_t</span> *val, <span class="keyword">void</span> *ctxt, <span class="keyword">void</span> (*func)(<span class="keyword">void</span> *))</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> *vval = val;</span><br><span class="line">    <span class="keyword">if</span> (dispatch_atomic_cmpxchg(val, <span class="number">0l</span>, <span class="number">1l</span>)) &#123;</span><br><span class="line">        func(ctxt); <span class="comment">// block真正执行</span></span><br><span class="line">        dispatch_atomic_barrier();</span><br><span class="line">        *val = ~<span class="number">0l</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            _dispatch_hardware_pause();</span><br><span class="line">        &#125; <span class="keyword">while</span> (*vval != ~<span class="number">0l</span>);</span><br><span class="line">        dispatch_atomic_barrier();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>dispatch_atomic_cmpxchg</code> 实际是 <code>__sync_bool_compare_and_swap(p,o,n)</code>， 这是LockFree给予CAS的一种原子操作机制，原理就是 如果p==o，那么将p设置为n，然后返回true;否则，不做任何处理返回false</p>
+<!-- ## 参考资料
+<p>
+                
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/2020/05/10/dispath_once%E5%86%85%E9%83%A8/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+--></div></div></article>
+    
+        <article id="post-生命周期" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag">生命周期</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/05/08/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+            <time datetime="2020-05-08T11:15:49.000Z" itemprop="datePublished">2020-05-08</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/生命周期.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/生命周期.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/生命周期.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/05/08/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">各种生命周期</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p></p><h2 id="vue实例生命周期-2-0"><a href="#vue实例生命周期-2-0" class="headerlink" title="vue实例生命周期 [2.0]"></a>vue实例生命周期 [2.0]</h2><ol>
+<li>beforeCreate</li>
+<li>created</li>
+<li>beforeMount</li>
+<li>mounted</li>
+<p>
+                
+            
+        
+        
+            </p></ol></div>   
+            <div class="article-more-link">
+                <a href="/2020/05/08/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-前端缓存" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/" rel="tag">前端缓存</a>, <a class="tag-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/05/07/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/">
+            <time datetime="2020-05-07T03:40:01.000Z" itemprop="datePublished">2020-05-07</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/前端缓存.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/前端缓存.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/前端缓存.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/05/07/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/">前端缓存</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p></p><p>性能优化总少不了缓存，网页性能优化里面静态资源相关优化是少不了浏览器的缓存</p>
+<h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><p>通过 两个http response header:</p>
+<ul>
+<li>Expires</li>
+<li>Cache-Control</li>
+<p>
+                
+            
+        
+        
+            </p></ul></div>   
+            <div class="article-more-link">
+                <a href="/2020/05/07/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-前端错误监控" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -498,7 +810,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/13/" rel="tag">13</a>, <a class="tag-link" href="/tags/iOS/" rel="tag">iOS</a>, <a class="tag-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a>
+        <a class="tag-link" href="/tags/iOS-13/" rel="tag">iOS 13</a>, <a class="tag-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a>
     </div>
 
                         
@@ -898,110 +1210,6 @@
 
 
     
-        <article id="post-iOS-performance" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/iOS/">iOS</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/iOS/" rel="tag">iOS</a>, <a class="tag-link" href="/tags/%E6%80%A7%E8%83%BD/" rel="tag">性能</a>, <a class="tag-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2020/03/10/iOS-performance/">
-            <time datetime="2020-03-10T06:12:19.000Z" itemprop="datePublished">2020-03-10</time>
-        </a>
-    </div>
-
-
-                        
-                            <i class="fa fa-bar-chart"></i>
-                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
-                        
-                        
-                            <div class="article-meta-button">
-                                <a href="https://github.com/liop/liop.github.io/raw/hexo/source/_posts/iOS-performance.md" target="_blank" rel="external nofollow noopener noreferrer"> Source </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a href="https://github.com/liop/liop.github.io/edit/hexo/source/_posts/iOS-performance.md" target="_blank" rel="external nofollow noopener noreferrer"> Edit </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a href="https://github.com/liop/liop.github.io/commits/hexo/source/_posts/iOS-performance.md" target="_blank" rel="external nofollow noopener noreferrer"> History </a>
-                            </div>
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2020/03/10/iOS-performance/">iOS 性能优化</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                
-                    
-                    <p></p><p>iOS 面试中经常出现的问题 <code>你做过哪些性能优化啊？</code> ，在这里总结一下。性能优化是一个很大的词，在做性能优化前需要先确定性能指标，完成性能监控，然后才好谈优化。</p>
-<h2 id="1-一般的优化方向"><a href="#1-一般的优化方向" class="headerlink" title="1. 一般的优化方向"></a>1. 一般的优化方向</h2><h3 id="启动优化"><a href="#启动优化" class="headerlink" title="启动优化"></a>启动优化</h3><p>一般我们选取：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">t1 &#x3D; 用户点击APP到执行main()</span><br><span class="line">t2 &#x3D; main()执行到 appDelegate的didFinishLaunchingWithOptions方法执行完毕</span><br><span class="line">t3 &#x3D; appDelegate的didFinishLaunchingWithOptions方法执行完毕到首屏显示</span><br></pre></td></tr></table></figure>
-<p>有些是把t1+t2作为启动时间，考虑到项目组件化，t1+t2+t3 可能更合适</p>
-<h4 id="t1时间的优化"><a href="#t1时间的优化" class="headerlink" title="t1时间的优化"></a>t1时间的优化</h4><p>t1 的时间主要是ldyd加载image:<code>link rebase bind</code>，objc初始化:<code>map_image read_image load_image</code>  以及静态方法 <code>__attribute__((constructor))</code></p>
-<p>
-                
-            
-        
-        
-            </p></div>   
-            <div class="article-more-link">
-                <a href="/2020/03/10/iOS-performance/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-hexo-next-githubpage" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1105,6 +1313,10 @@
 
 
 
+    
+        <nav id="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &amp;raquo;</a>
+        </nav>
     
 </section>
         </div>
