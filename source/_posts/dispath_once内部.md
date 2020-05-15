@@ -1,13 +1,13 @@
 ---
-title: jS设计模式
+title: dispath_once内部实现
 toc: true
-date: 2020-05-07 11:40:13
+date: 2020-05-10 14:39:42
 tags:
-- 技巧
+  - 技巧
 categories:
+  - iOS
 ---
 
-主要记录在看开源库和系统源码时，遇到不错的技术点
 
 #### dispath_once
 
@@ -40,6 +40,9 @@ void dispatch_once_f(dispatch_once_t *val, void *ctxt, void (*func)(void *)){
 
 
 
-## 参考资料
+
+
+
+<!-- ## 参考资料
 > - []()
-> - []()
+> - []() -->

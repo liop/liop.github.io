@@ -2,8 +2,7 @@
 title: iOS 13 版本适配
 date: 2020-04-03 16:23:48
 tags: 
-  - iOS
-  - 13
+  - iOS 13
   - 适配
 categories:
   - iOS
