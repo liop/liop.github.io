@@ -4,7 +4,7 @@ layout: "page"
 date: 2020-03-09 12:48:15
 ---
 
-## 联系我 (正在寻求iOS/前端的开发工作，有岗位请联系我)
+## 联系我 (正在寻求前端/全栈的开发工作，有岗位请联系我)
 
 邮箱:    just.liop#qq.com
 github: [liop](https://github.com/liop)
@@ -12,10 +12,10 @@ github: [liop](https://github.com/liop)
 ## 我的技术栈
 
 * 精通 Object-C，熟悉 iOS 平台
-* 熟练 Javascript，熟悉 vue + vuex + webpack + element-ui
-* 有 node.js 接口开发经验，有 python 脚本开发经验
-* 熟悉 linux 平台，熟悉 docker 部署
-
+* 熟悉 vue + vuex + webpack + element-ui
+* 熟悉 react + react-router + webpack + antd
+* 有 node.js 接口开发经验, 熟悉 mongodb、redis
+* 熟悉 linux 平台，熟悉 CI/CD, 熟悉 docker 
 
 ## 我的个人项目
 
@@ -52,9 +52,14 @@ github: [liop](https://github.com/liop)
 
 #### 移动端H5
 
+#### [惠配通] 中所有h5 (2020-2022)
+> 惠配通是惠民网旗下面向超市老板的客户端，专门为社区超市经营管理者打造的线上订货APP,提供超市日常销售的食品、零食、粮油等生活必须的商品，充分利用互联网和电商平台的优势,解决社区超市进货难,进货贵,进假货的问题。线上订货、线下配送，为社区超市提供货品支持，提高了超市运营的效率。同时惠配通还会不断推出各种满额返利、限时特惠、新品特价等优惠促销活动，给用户满意的服务体验。
+
 * [电信大数据风控]
 * [联调大数据营销]
 * [钉铛AI]
+
+
 
 
 [BTSyncKeys]: https://btsynckeys.herokuapp.com/
@@ -72,3 +77,5 @@ github: [liop](https://github.com/liop)
 [玺客-银川通]:https://apps.apple.com/cn/app/id1388267300
 [统一通信-官网]: http://www.uccc.cc/ "官网"
 [统一通信-企业管理后台]:http://jingleapp.uccc.cc/jingle/login.html "管理后台"
+
+[惠配通]:https://apps.apple.com/cn/app/%E6%83%A0%E9%85%8D%E9%80%9A/id1044992691
