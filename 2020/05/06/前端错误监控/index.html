@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>前端错误监控 | liop</title>
+    
+    
+        <meta name="keywords" content="错误监控">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="看了[一步一步搭建前端监控系统] 觉得非常不错，记录总结一下 JS错误监控 重写window.onerror 方法，来处理异步的错误 重写console.error 方法,暂时没发现有什么用 重写window.onunhandlerejection,用于Promise出错，但是没有catch的时候  静态资源加载监控需要先加载监控的sdk才有用  通过window.onerror方法，跨域资源加载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端错误监控">
+<meta property="og:url" content="http://liop.github.io/2020/05/06/%E5%89%8D%E7%AB%AF%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/index.html">
+<meta property="og:site_name" content="liop">
+<meta property="og:description" content="看了[一步一步搭建前端监控系统] 觉得非常不错，记录总结一下 JS错误监控 重写window.onerror 方法，来处理异步的错误 重写console.error 方法,暂时没发现有什么用 重写window.onunhandlerejection,用于Promise出错，但是没有catch的时候  静态资源加载监控需要先加载监控的sdk才有用  通过window.onerror方法，跨域资源加载">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-06T13:32:15.000Z">
+<meta property="article:modified_time" content="2020-05-06T13:32:15.000Z">
+<meta property="article:author" content="liop">
+<meta property="article:tag" content="错误监控">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@just4liop">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">liop</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            iOS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  <li class="file"><a href="/2020/03/25/iOS-diff/">iOS SDK 版本新特性</a></li>  <li class="file"><a href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a></li>  <li class="file"><a href="/2020/05/10/dispath_once%E5%86%85%E9%83%A8/">dispath_once内部实现</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            前端
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2017/02/11/2017-02-07-Shadow-DOM/">Shadow DOM!</a></li>  <li class="file"><a href="/2020/01/14/hexo-next-githubpage/">部署hexo+next 到github page 的一些坑</a></li>  <li class="file"><a href="/2020/05/04/%E5%90%84%E8%AF%AD%E8%A8%80eventloop%E5%AE%9E%E7%8E%B0/">JS的EventLoop和OC的RunLoop比较</a></li>  <li class="file active"><a href="/2020/05/06/%E5%89%8D%E7%AB%AF%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/">前端错误监控</a></li>  <li class="file"><a href="/2020/05/07/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/">前端缓存</a></li>  <li class="file"><a href="/2020/05/08/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">各种生命周期</a></li>  <li class="file"><a href="/2021/01/25/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%A1%B5%E9%9D%A2%E8%B0%83%E8%AF%95/">移动端页面调试</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随笔
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/23/%E5%A4%A7%E5%8E%82app/">大厂app</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-前端错误监控" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/" rel="tag">错误监控</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/05/06/%E5%89%8D%E7%AB%AF%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/">
+            <time datetime="2020-05-06T13:32:15.000Z" itemprop="datePublished">2020-05-06</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            前端错误监控
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#JS%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7"><span class="toc-number">1.</span> <span class="toc-text">JS错误监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E7%9B%91%E6%8E%A7"><span class="toc-number">2.</span> <span class="toc-text">静态资源加载监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E7%9B%91%E6%8E%A7"><span class="toc-number">3.</span> <span class="toc-text">接口请求监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS%E6%88%AA%E5%B1%8F%E5%92%8C%E5%BD%95%E5%B1%8F"><span class="toc-number">4.</span> <span class="toc-text">JS截屏和录屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">写在最后</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number"></span> <span class="toc-text">参考资料</span></a>
+                </li></div>
+            
+        
+        
+            <p>看了[一步一步搭建前端监控系统] 觉得非常不错，记录总结一下</p>
+<h3 id="JS错误监控"><a href="#JS错误监控" class="headerlink" title="JS错误监控"></a>JS错误监控</h3><ol>
+<li>重写<code>window.onerror</code> 方法，来处理异步的错误</li>
+<li><del>重写<code>console.error</code> 方法</del>,暂时没发现有什么用</li>
+<li>重写<code>window.onunhandlerejection</code>,用于Promise出错，但是没有catch的时候</li>
+</ol>
+<h3 id="静态资源加载监控"><a href="#静态资源加载监控" class="headerlink" title="静态资源加载监控"></a>静态资源加载监控</h3><p>需要先加载监控的sdk才有用</p>
+<ol>
+<li>通过<code>window.onerror</code>方法，跨域资源加载会有问题，需要设置&#96;&#96;crossorigin&#96;&#96;&#96;,参考<a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror" title="MDN">MDN</a></li>
+<li>利用<code>performance.getEntries()</code> 方法，能获取所有加载成功的资源列表，但是检查时机难掌握</li>
+<li>通过<code>window.addEventListener(&#39;error&#39;,cb)</code>来捕获。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">cb</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> type = e.<span class="property">target</span>.<span class="property">localName</span>;</span><br><span class="line">  <span class="keyword">let</span> sourceUrl = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">if</span> (type == <span class="string">&#x27;link&#x27;</span>) &#123; <span class="comment">// css</span></span><br><span class="line">    sourceUrl = e.<span class="property">target</span>.<span class="property">href</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="string">&#x27;script&#x27;</span>) <span class="comment">// js</span></span><br><span class="line">    sourceUrl = e.<span class="property">target</span>.<span class="property">src</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//todo: upload</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="接口请求监控"><a href="#接口请求监控" class="headerlink" title="接口请求监控"></a>接口请求监控</h3><p>前端请求用ajax、fetch,或者其他框架都是对 <code>window.XMLHttpRequest</code>的封装</p>
+<ol>
+<li>对ajax请求，监听<code>loadstart</code>,<code>loadend</code>事件,因为事件的<code>detail</code>引用一样，所以能定位请求的开始和结束</li>
+<li>对fetch请求，因为浏览器内置的，现在我们代码执行，所以需要重写一下</li>
+</ol>
+<h3 id="JS截屏和录屏"><a href="#JS截屏和录屏" class="headerlink" title="JS截屏和录屏"></a>JS截屏和录屏</h3><ol>
+<li>截屏：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/niklasvh/html2canvas">html2canvas</a></li>
+<li>录屏：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/rrweb-io/rrweb/blob/master/README.zh_CN.md">rrweb</a></li>
+</ol>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>引用<a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror" title="MDN">MDN</a>文档，window.onerror 和 window.addEventListener的区别：</p>
+<p> GlobalEventHandlers 的<code>onerror</code>属性是用于处理<code>error</code>事件的事件处理程序，错误事件在各种目标对象的不同类型错误被触发：</p>
+<ul>
+<li>当JavaScript运行时错误（包括语法错误）发生时，window会触发一个ErrorEvent接口的error事件，并执行window.onerror()。</li>
+<li>当一项资源（如&lt;img&gt;或&lt;script&gt;）加载失败，加载资源的元素会触发一个Event接口的error事件，并执行该元素上的onerror()处理函数。这些error事件不会向上冒泡到window，不过（至少在Firefox中）能被单一的window.addEventListener捕获。</li>
+</ul>
+<p>加载一个全局的error事件处理函数可用于自动收集错误报告。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.cnblogs.com/warm-stranger/category/1202339.html">一步一步搭建前端监控系统</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror" title="MDN">MDN GlobalEventHandlers</a></li>
+</ul>
+</blockquote>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2020/05/07/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    前端缓存
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/05/04/%E5%90%84%E8%AF%AD%E8%A8%80eventloop%E5%AE%9E%E7%8E%B0/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">JS的EventLoop和OC的RunLoop比较</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            liop &copy; 2022 
+            <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://liop.github.io/2020/05/06/%E5%89%8D%E7%AB%AF%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/';
+        
+        this.page.identifier = '前端错误监控';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'liop-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

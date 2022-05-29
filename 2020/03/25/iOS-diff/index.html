@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>iOS SDK 版本新特性 | liop</title>
+    
+    
+        <meta name="keywords" content="iOS SDK,适配">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="iOS 13 新特性 深色模式 – 自动将 iOS 控件变成暗色调方案 SwiftUI – 全新的框架，Swift声明式编程方法写UI 多个UI实例 – 一个APP多窗口 SFSymbols – 支持和提供SVG格式矢量图标库，大概1500个内置图标 将您的 iPad App 带入 Mac – xcode提供选项，支持iPadAPP 迁移到MAc AR 增强 ARKit 3 – 随着设备的升级，功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS SDK 版本新特性">
+<meta property="og:url" content="http://liop.github.io/2020/03/25/iOS-diff/index.html">
+<meta property="og:site_name" content="liop">
+<meta property="og:description" content="iOS 13 新特性 深色模式 – 自动将 iOS 控件变成暗色调方案 SwiftUI – 全新的框架，Swift声明式编程方法写UI 多个UI实例 – 一个APP多窗口 SFSymbols – 支持和提供SVG格式矢量图标库，大概1500个内置图标 将您的 iPad App 带入 Mac – xcode提供选项，支持iPadAPP 迁移到MAc AR 增强 ARKit 3 – 随着设备的升级，功">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-25T06:07:17.000Z">
+<meta property="article:modified_time" content="2020-03-25T06:07:17.000Z">
+<meta property="article:author" content="liop">
+<meta property="article:tag" content="iOS SDK">
+<meta property="article:tag" content="适配">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@just4liop">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">liop</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            iOS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/10/iOS-APP-launch-process/">iOS APP 启动完成过程</a></li>  <li class="file active"><a href="/2020/03/25/iOS-diff/">iOS SDK 版本新特性</a></li>  <li class="file"><a href="/2020/04/03/iOS13-adaptive/">iOS 13 版本适配</a></li>  <li class="file"><a href="/2020/05/10/dispath_once%E5%86%85%E9%83%A8/">dispath_once内部实现</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            前端
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2017/02/11/2017-02-07-Shadow-DOM/">Shadow DOM!</a></li>  <li class="file"><a href="/2020/01/14/hexo-next-githubpage/">部署hexo+next 到github page 的一些坑</a></li>  <li class="file"><a href="/2020/05/04/%E5%90%84%E8%AF%AD%E8%A8%80eventloop%E5%AE%9E%E7%8E%B0/">JS的EventLoop和OC的RunLoop比较</a></li>  <li class="file"><a href="/2020/05/06/%E5%89%8D%E7%AB%AF%E9%94%99%E8%AF%AF%E7%9B%91%E6%8E%A7/">前端错误监控</a></li>  <li class="file"><a href="/2020/05/07/%E5%89%8D%E7%AB%AF%E7%BC%93%E5%AD%98/">前端缓存</a></li>  <li class="file"><a href="/2020/05/08/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">各种生命周期</a></li>  <li class="file"><a href="/2021/01/25/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%A1%B5%E9%9D%A2%E8%B0%83%E8%AF%95/">移动端页面调试</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随笔
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/2020/03/23/%E5%A4%A7%E5%8E%82app/">大厂app</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-iOS-diff" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/iOS/">iOS</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/iOS-SDK/" rel="tag">iOS SDK</a>, <a class="tag-link-link" href="/tags/%E9%80%82%E9%85%8D/" rel="tag">适配</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/03/25/iOS-diff/">
+            <time datetime="2020-03-25T06:07:17.000Z" itemprop="datePublished">2020-03-25</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            iOS SDK 版本新特性
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS-13-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">iOS 13 新特性</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS-12"><span class="toc-number"></span> <span class="toc-text">iOS 12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS-11"><span class="toc-number"></span> <span class="toc-text">iOS 11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS10"><span class="toc-number"></span> <span class="toc-text">iOS10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS-9"><span class="toc-number"></span> <span class="toc-text">iOS 9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS8"><span class="toc-number"></span> <span class="toc-text">iOS8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS-7"><span class="toc-number"></span> <span class="toc-text">iOS 7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iOS-6"><span class="toc-number"></span> <span class="toc-text">iOS 6</span></a>
+                </li></div>
+            
+        
+        
+            <h3 id="iOS-13-新特性"><a href="#iOS-13-新特性" class="headerlink" title="iOS 13 新特性"></a>iOS 13 新特性</h3><ul>
+<li>深色模式 – 自动将 iOS 控件变成暗色调方案</li>
+<li>SwiftUI – 全新的框架，Swift声明式编程方法写UI</li>
+<li>多个UI实例 – 一个APP多窗口</li>
+<li>SFSymbols – 支持和提供SVG格式矢量图标库，大概1500个内置图标</li>
+<li>将您的 iPad App 带入 Mac – xcode提供选项，支持iPadAPP 迁移到MAc</li>
+<li>AR 增强<ul>
+<li>ARKit 3 – 随着设备的升级，功能进一步加强</li>
+<li>RealityKit – 和AR配合，提供渲染、相机特效</li>
+<li>Reality Composer – 快速制作AR内容原型</li>
+</ul>
+</li>
+<li>通过Apple登录 – 提供AppleiD登录，并强制APP提供</li>
+<li>后台任务 – 全新的 BackgroundTasks 框架，提供几分钟的后台时间</li>
+<li>相机拍摄 – 同时使用前后相机拍摄</li>
+<li>Combine – 全新的框架，声明式SwiftAPI，适合MVVM</li>
+<li>Core Haptics – 全新的触控反馈框架</li>
+<li>Apple CryptoKit – 全新的加密框架</li>
+<li>MetricKit – 全新的性能监控采集框架</li>
+<li>PencilKit – 全新的框架，提供手绘的绘图的环境，支持pencil和手指</li>
+<li>Core ML 3 – 加强，支持设备端模型个性化</li>
+<li>机器视觉 – 加强，支持检测识别图像的能力<ul>
+<li>VisionKit – 全新的框架，支持扫描文稿</li>
+</ul>
+</li>
+<li>Metal – 加强</li>
+<li>CoreData – 加强，支持与CloudKit 配合</li>
+<li>Core NFC – 加强，支持标签写入，更多协议</li>
+<li>SiriKit – 加强，支持日程和控制音视频</li>
+</ul>
+<h2 id="iOS-12"><a href="#iOS-12" class="headerlink" title="iOS 12"></a>iOS 12</h2><ul>
+<li>ARKit 2 加强<ul>
+<li>多用户共享AR</li>
+<li>对象检测</li>
+</ul>
+</li>
+<li>Siri 捷径 app支持短语</li>
+<li>健康记录 HealthKit 新增</li>
+<li>通知控件 支持交互</li>
+<li>Pencil 加强</li>
+<li>自动填充密码、验证码</li>
+<li>CarPlay 车载框架</li>
+<li>新增底层网络框架 Network ，支持 TCP、UDP、TLS等</li>
+<li>新 Natural Language 框架</li>
+<li>弃用 OpenGL ES，使用Metal 替代</li>
+</ul>
+<h2 id="iOS-11"><a href="#iOS-11" class="headerlink" title="iOS 11"></a>iOS 11</h2><ul>
+<li>ARKit 新增</li>
+<li>CoreML 新增</li>
+</ul>
+<h2 id="iOS10"><a href="#iOS10" class="headerlink" title="iOS10"></a>iOS10</h2><ul>
+<li>iMessage Apps</li>
+<li>User Notifications</li>
+<li>SirKit</li>
+<li>更多的 Extensions</li>
+</ul>
+<h2 id="iOS-9"><a href="#iOS-9" class="headerlink" title="iOS 9"></a>iOS 9</h2><ul>
+<li>UIStackView 新增</li>
+<li>3D touch 新增</li>
+<li>ContactFramework 新增</li>
+</ul>
+<h2 id="iOS8"><a href="#iOS8" class="headerlink" title="iOS8"></a>iOS8</h2><ul>
+<li>Extensions</li>
+<li>Swift</li>
+<li>WKWebview 新增</li>
+<li>CallKit</li>
+<li>Size Class</li>
+<li>Touch ID</li>
+<li>Photos.framework 新增</li>
+<li>Self Sizing Cells</li>
+</ul>
+<h2 id="iOS-7"><a href="#iOS-7" class="headerlink" title="iOS 7"></a>iOS 7</h2><ul>
+<li>UIKit Dynamics</li>
+<li>自定义ViewController切换</li>
+</ul>
+<h2 id="iOS-6"><a href="#iOS-6" class="headerlink" title="iOS 6"></a>iOS 6</h2><ul>
+<li>Autolayout</li>
+</ul>
+<p>参考链接<br>[iOS SDK 的新功能]:<a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.apple.com/cn/ios/whats-new/">https://developer.apple.com/cn/ios/whats-new/</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2020/04/03/iOS13-adaptive/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    iOS 13 版本适配
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/03/23/%E5%A4%A7%E5%8E%82app/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">大厂app</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            liop &copy; 2022 
+            <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://liop.github.io/2020/03/25/iOS-diff/';
+        
+        this.page.identifier = 'iOS-diff';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'liop-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
